@@ -1,0 +1,16 @@
+question_similarity/
+│
+├── app.py                     # Flask application (routes only)
+├── requirements.txt           # Python dependencies
+├── data/
+│   └── questions.json         # Data file
+├── models/
+│   └── question_model.py      # Question similarity model logic
+├── services/
+│   ├── data_service.py        # Data loading and preparation logic
+│   └── model_service.py       # Model loading and similarity computation logic
+├── templates/
+│   └── index.html             # HTML template for the web interface
+└── static/
+    └── css/
+        └── styles.css         # CSS styles

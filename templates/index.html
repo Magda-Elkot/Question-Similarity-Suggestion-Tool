@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Suggester</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Question Suggester</h1>
+        <form method="POST">
+            <label for="query">Enter your question:</label>
+            <input type="text" id="query" name="query" required>
+            <button type="submit">Get Suggestions</button>
+        </form>
+        {% if similar_questions %}
+        <div class="results">
+            <h2>Suggested Questions:</h2>
+            <ul>
+                {% for question in similar_questions %}
+                <li>{{ question }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
