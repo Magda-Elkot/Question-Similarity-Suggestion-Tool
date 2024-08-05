@@ -1,33 +1,46 @@
-# Import necessary libraries
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
+from sentence_transformers import SentenceTransformer, util
+import torch
 
-# Define the QuestionModel class
 class QuestionModel:
-    def __init__(self, questions):
+    def __init__(self, questions, model_name='all-MiniLM-L6-v2'):
         """
-        Initialize the QuestionModel with a list of questions.
+        Initialize the QuestionModel with a list of questions and a pre-trained model.
 
-        :param questions: List of questions (strings) to be used for similarity comparison.
+        Parameters:
+        - questions (list of str): The list of questions to encode and compare.
+        - model_name (str): The name of the pre-trained SentenceTransformer model to use (default is 'all-MiniLM-L6-v2').
         """
-        self.questions = questions  # Store the list of questions
-        self.vectorizer = TfidfVectorizer()  # Initialize a TfidfVectorizer
-        # Fit the vectorizer on the questions and transform them into TF-IDF vectors
-        self.question_vectors = self.vectorizer.fit_transform(questions)
+        # Store the list of questions
+        self.questions = questions
+
+        # Load the SentenceTransformer model with the specified model name
+        self.model = SentenceTransformer(model_name)
+
+        # Encode the list of questions into embeddings using the model
+        self.question_embeddings = self.model.encode(questions, convert_to_tensor=True)
     
     def find_similar(self, query, top_k=3):
         """
-        Find the top_k questions most similar to the query.
+        Find and return a list of questions similar to the given query.
 
-        :param query: The input query string for which to find similar questions.
-        :param top_k: The number of top similar questions to return.
-        :return: List of top_k similar questions.
+        Parameters:
+        - query (str): The question or query for which similar questions are to be found.
+        - top_k (int): The number of top similar questions to return (default is 3).
+
+        Returns:
+        - list of tuples: A list of tuples where each tuple contains a similar question and its cosine similarity score.
         """
-        # Transform the query into a TF-IDF vector using the same vectorizer
-        query_vector = self.vectorizer.transform([query])
-        # Compute cosine similarities between the query vector and all question vectors
-        cosine_similarities = linear_kernel(query_vector, self.question_vectors).flatten()
-        # Get the indices of the top_k questions with the highest similarity scores
-        related_docs_indices = cosine_similarities.argsort()[:-top_k-1:-1]
-        # Return the list of top_k similar questions using the computed indices
-        return [self.questions[i] for i in related_docs_indices]
+        # Encode the query into an embedding using the model
+        query_embedding = self.model.encode(query, convert_to_tensor=True)
+
+        # Compute cosine similarities between the query embedding and the question embeddings
+        cosine_similarities = util.pytorch_cos_sim(query_embedding, self.question_embeddings).flatten()
+
+        # Get indices of the top_k most similar questions
+        related_docs_indices = cosine_similarities.argsort(descending=True)[:top_k]
+
+        # Retrieve the similar questions and their similarity scores
+        similar_questions = [(self.questions[i], cosine_similarities[i].item()) for i in related_docs_indices]
+
+        # Return the list of similar questions and scores
+        return similar_questions
