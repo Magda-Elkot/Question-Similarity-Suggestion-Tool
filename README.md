@@ -6,22 +6,22 @@ The Question Similarity Suggestion Tool is a web application designed to suggest
 # Project Structure
 
 question_similarity/
-│
-├── app.py                     # Flask application (routes only)
-├── requirements.txt           # Python dependencies
+├── app.py                  # Flask application (routes only)
+├── requirements.txt        # Python dependencies
 ├── data/
-│   └── questions.json         # Data file
+│   └── questions.json      # Data file
 ├── models/
-│   └── question_model.py      # Question similarity model logic
+│   └── question_model.py   # Question similarity model logic
 ├── services/
-│   ├── data_service.py        # Data loading and preparation logic
-│   └── model_service.py       # Model loading and similarity computation logic
+│   ├── data_service.py     # Data loading and preparation logic
+│   └── model_service.py    # Model loading and similarity computation logic
 ├── templates/
-│   └── index.html             # HTML template for the web interface
-├── test_dependencies.py           # This script tests the installation of PyTorch and SentenceTransformer
+│   └── index.html          # HTML template for the web interface
+├── test_dependencies.py    # Script to test installation of PyTorch and SentenceTransformer
 └── static/
     └── css/
-        └── styles.css         # CSS styles
+        └── styles.css      # CSS styles
+
 
 # Detailed Project Breakdown
 
