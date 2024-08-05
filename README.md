@@ -6,20 +6,22 @@ The Question Similarity Suggestion Tool is a web application designed to suggest
 # Project Structure
 
 question_similarity/
-├── app.py # Flask application (routes only)
-├── requirements.txt # Python dependencies
+│
+├── app.py                     # Flask application (routes only)
+├── requirements.txt           # Python dependencies
 ├── data/
-│ └── questions.json # Data file
+│   └── questions.json         # Data file
 ├── models/
-│ └── question_model.py # Question similarity model logic
+│   └── question_model.py      # Question similarity model logic
 ├── services/
-│ ├── data_service.py # Data loading and preparation logic
-│ └── model_service.py # Model loading and similarity computation logic
+│   ├── data_service.py        # Data loading and preparation logic
+│   └── model_service.py       # Model loading and similarity computation logic
 ├── templates/
-│ └── index.html # HTML template for the web interface
+│   └── index.html             # HTML template for the web interface
+├── test_dependencies.py           # This script tests the installation of PyTorch and SentenceTransformer
 └── static/
-└── css/
-└── styles.css # CSS styles
+    └── css/
+        └── styles.css         # CSS styles
 
 # Detailed Project Breakdown
 
@@ -27,6 +29,12 @@ question_similarity/
 - **Purpose**: Contains the Flask application with routes for handling HTTP requests.
 - **Goal**: Serve as the entry point for the web application, managing user requests and routing them to the appropriate service functions.
 - **Advantage**: Centralizes route definitions and application logic, making it easier to manage and understand the application's flow. Helps in separating the web interface from the business logic.
+
+  ![image](https://github.com/user-attachments/assets/908ea142-f1b3-40ec-8683-5d47692e78e6)
+
+
+  ![image](https://github.com/user-attachments/assets/012b5c77-f63f-477d-831f-fe60ce868d5b)
+
 
 ## requirements.txt
 - **Purpose**: Lists all Python dependencies required for the project.
@@ -39,9 +47,9 @@ question_similarity/
 - **Advantage**: JSON is a lightweight and easy-to-parse format, making it convenient for storing and retrieving structured data.
 
 ## models/question_model.py
-- **Purpose**: Implements the logic for computing question similarity using the TF-IDF model.
-- **Goal**: Define a class `QuestionModel` to handle text vectorization with TF-IDF and similarity calculations.
-- **Advantage**: TF-IDF (Term Frequency-Inverse Document Frequency) is effective for transforming text into numerical features that reflect word importance. It is simple to understand and implement, making it a good choice for baseline models in text similarity tasks.
+- **Purpose**: IImplements the logic for computing question similarity using the Sentence Transformer model.
+- **Goal**: Define a class QuestionModel to handle text vectorization with Sentence Transformers and similarity calculations.
+- **Advantage**: Sentence Transformers capture the semantic meaning of sentences, providing more accurate and context-aware similarity comparisons.
 
 ## services/data_service.py
 - **Purpose**: Contains logic for loading and preparing data from `questions.json`.
@@ -63,12 +71,24 @@ question_similarity/
 - **Goal**: Style the HTML elements to create a visually appealing and user-friendly interface.
 - **Advantage**: Allows for customization of the web interface's look and feel, improving user experience. Keeping styles in a separate file promotes modularity and ease of maintenance.
 
-# Advantages of Using TF-IDF
-- **Simplicity**: TF-IDF is straightforward to implement and understand. It transforms text into numerical vectors while reflecting the importance of terms within the document and corpus.
-- **Effectiveness**: TF-IDF is effective for tasks like document similarity, search, and information retrieval. It captures the relevance of terms based on their frequency and inverse document frequency, making it suitable for text-based applications.
-- **Low Computational Requirements**: Compared to more complex models like those based on deep learning, TF-IDF is less resource-intensive, making it appropriate for applications with limited computational resources or smaller datasets.
-- **Baseline Model**: TF-IDF provides a solid baseline for text similarity tasks. It can be a starting point before exploring more advanced models like word embeddings or transformers. If TF-IDF performs well, it may be sufficient for the application’s needs.
+# Advantages of Using Sentence Transformers
+- **Captures Semantic Meaning**: Sentence Transformers generate embeddings that reflect the context and meaning of sentences, enabling more accurate similarity comparisons.
+- **Context-aware**: Better at understanding nuances and relationships between words compared to TF-IDF and CountVectorizer.
+- **Improves Accuracy**: Provides more relevant and precise similarity comparisons, enhancing the user experience by suggesting more appropriate related questions.
+
+
+# Model Architecture and Block Diagram
+## Model Architecture
+The Sentence Transformer model used in this project is based on transformer architecture, which encodes sentences into dense vector representations. These vectors capture the semantic meaning of the sentences.
+
+![image](https://github.com/user-attachments/assets/3b9fb326-233d-473c-873b-30c698f028d9)
+
+## Block Diagram
+The system is composed of several key components:
+
+![image](https://github.com/user-attachments/assets/259c0863-d89c-4730-8d63-12d2c157ed42)
+
 
 # Summary
-The purpose of the Question Similarity Suggestion Tool is to provide an easy-to-use web application that suggests similar questions based on user input, leveraging the simplicity and effectiveness of the TF-IDF model for text similarity tasks. The project structure is designed to be modular and maintainable, ensuring a clear separation of concerns and enhancing both development and user experience.
+The purpose of the Question Similarity Suggestion Tool is to provide an easy-to-use web application that suggests similar questions based on user input, leveraging the advanced capabilities of Sentence Transformers for text similarity tasks. The project structure is designed to be modular and maintainable, ensuring a clear separation of concerns and enhancing both development and user experience.
 
