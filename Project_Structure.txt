@@ -11,6 +11,7 @@ question_similarity/
 │   └── model_service.py       # Model loading and similarity computation logic
 ├── templates/
 │   └── index.html             # HTML template for the web interface
+├── test_dependencies.py           # This script tests the installation of PyTorch and SentenceTransformer
 └── static/
     └── css/
         └── styles.css         # CSS styles
